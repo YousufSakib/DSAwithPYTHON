@@ -1,44 +1,34 @@
-def merge_sort(list):
-  if len(list) == 1:
-    return list
+def merge_sort(values):
+  if len(values) <= 1:
+    return values
 
-  left_half, right_half = split(list);
-  left = merge_sort(left_half)
-  right = merge_sort(right_half)
+  middle_index = len(values) // 2
 
-  return merge(left, right)
+  left_values = merge_sort(values[:middle_index])
 
-def split(list):
-  mid = len(list)//2
-  left = list[:mid]
-  right = list[mid:]
-  
-  return left, right
+  right_values = merge_sort(values[middle_index:])
 
-def merge(left, right):
-  l = []
-  i = 0
-  j = 0
+  sorted_values = []
 
-  while i < len(left) and j < len(right):
-    if left[i] < right[j]:
-      l.append(left[i])
-      i += 1
+  left_index = 0
+
+  right_index = 0
+
+  while left_index < len(left_values) and right_index < len(right_values):
+
+    if left_values[left_index] < right_values[right_index]:
+
+      sorted_values.append(left_values[left_index])
+
+      left_index += 1
+
     else:
-      l.append(right[j])
-      j += 1
-  
-  while i < len(left):
-    l.append(left[i])
-    i += 1
 
-  while j < len(right):
-    l.append(right[j])
-    j += 1
+      sorted_values.append(right_values[right_index])
 
-  return l
+      right_index += 1
 
-print("SKAI")
-alist = [54, 62, 93, 11, 54, 30, 34, 34, 50]
-l = merge_sort(alist)
-print(l)
+  sorted_values += left_values[left_index:]
+  sorted_values += right_values[right_index:]
+
+  return sorted_values
